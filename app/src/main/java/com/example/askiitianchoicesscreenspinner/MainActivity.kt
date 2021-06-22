@@ -1,13 +1,13 @@
 package com.example.askiitianchoicesscreenspinner
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.askiitianchoicesscreenspinner.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
+    MyBoardsAdapter.OnBoardItemClickListener, MyExamsAdapter.OnExamItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private val TAG = "Main"
@@ -17,16 +17,37 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.selectClassCv.setOnClickListener {
-            binding.tvInputLayout.visibility = View.VISIBLE
-            Log.d(TAG, "onCreate: Cv Clicked")
+        binding.rvDropdown.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = MyClassesAdapter(selectClassDropDownNames(), this@MainActivity)
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        val adapter = ArrayAdapter(this, R.layout.dropdown_tv, R.id.tv_item, selectClassDropDownNames())
-        binding.autoCompleteTv.setAdapter(adapter)
+        binding.includeSelectBoards.rvSelectBoards.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = MyBoardsAdapter(selectBoardNames(), this@MainActivity)
+        }
+
+        binding.includeSelectExams.rvSelectExams.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = MyExamsAdapter(selectExamNames(), this@MainActivity)
+        }
+
+        binding.apply {
+            selectClassesCv.setOnClickListener {
+                rvDropdown.visibility = View.VISIBLE
+            }
+            includeSelectBoards.apply {
+                selectBoardsCv.setOnClickListener {
+                    rvSelectBoards.visibility = View.VISIBLE
+                }
+            }
+            includeSelectExams.apply {
+                selectExamsCv.setOnClickListener {
+                    rvSelectExams.visibility = View.VISIBLE
+                }
+            }
+        }
+
     }
 
     private fun selectClassDropDownNames(): List<String> {
@@ -46,7 +67,26 @@ class MainActivity : AppCompatActivity() {
         return listOf("C.B.S.E", "I.C.S.E", "L.B", "Other")
     }
 
-    private fun preparingForOptions(): List<String> {
+    private fun selectExamNames(): List<String> {
         return listOf("School Exam", "JEE", "NEET")
     }
+
+    override fun onBoardItemClick(position: Int, options: List<String>) {
+        binding.includeSelectBoards.selectedBoardTv.text = options[position]
+        binding.includeSelectBoards.selectedBoardTv.visibility = View.VISIBLE
+        binding.includeSelectBoards.rvSelectBoards.visibility = View.GONE
+    }
+
+    override fun onItemClick(position: Int, options: List<String>) {
+        binding.selectedClassTv.text = options[position]
+        binding.selectedClassTv.visibility = View.VISIBLE
+        binding.rvDropdown.visibility = View.GONE
+    }
+
+    override fun onExamItemClick(position: Int, options: List<String>) {
+        binding.includeSelectExams.selectedExamTv.text = options[position]
+        binding.includeSelectExams.selectedExamTv.visibility = View.VISIBLE
+        binding.includeSelectExams.rvSelectExams.visibility = View.GONE
+    }
+
 }
