@@ -1,7 +1,10 @@
 package com.example.askiitianchoicesscreenspinner
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.askiitianchoicesscreenspinner.databinding.ActivityMainBinding
@@ -11,11 +14,16 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
 
     private lateinit var binding: ActivityMainBinding
     private val TAG = "Main"
+    private val userSelection: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        userSelection.add("0")
+        userSelection.add("0")
+        userSelection.add("0")
 
         binding.rvDropdown.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -44,6 +52,19 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
             includeSelectExams.apply {
                 selectExamsCv.setOnClickListener {
                     rvSelectExams.visibility = View.VISIBLE
+                }
+            }
+
+            confirmBtn.setOnClickListener {
+                Log.d(TAG, "user selection: ${userSelection}")
+                if (!userSelection.contains("0")) {
+                    Intent(this@MainActivity, SecondActivity::class.java).also {
+                        it.putExtra("selected_option", userSelection)
+                        startActivity(it)
+                    }
+                } else {
+                    Toast.makeText(this@MainActivity, "select all 3 options", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
@@ -75,18 +96,24 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
         binding.includeSelectBoards.selectedBoardTv.text = options[position]
         binding.includeSelectBoards.selectedBoardTv.visibility = View.VISIBLE
         binding.includeSelectBoards.rvSelectBoards.visibility = View.GONE
+        userSelection[1] = options[position]
+        Log.d(TAG, "onBoardItemClick: ${userSelection}")
     }
 
     override fun onItemClick(position: Int, options: List<String>) {
         binding.selectedClassTv.text = options[position]
         binding.selectedClassTv.visibility = View.VISIBLE
         binding.rvDropdown.visibility = View.GONE
+        userSelection[0] = options[position]
+        Log.d(TAG, "onItemClick: $userSelection")
     }
 
     override fun onExamItemClick(position: Int, options: List<String>) {
         binding.includeSelectExams.selectedExamTv.text = options[position]
         binding.includeSelectExams.selectedExamTv.visibility = View.VISIBLE
         binding.includeSelectExams.rvSelectExams.visibility = View.GONE
+        userSelection[2] = options[position]
+        Log.d(TAG, "onExamItemClick: $userSelection")
     }
 
 }

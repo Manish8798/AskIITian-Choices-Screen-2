@@ -1,5 +1,6 @@
 package com.example.askiitianchoicesscreenspinner
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,10 @@ class MyBoardsAdapter(
 ) :
     RecyclerView.Adapter<MyBoardsAdapter.MyBoardViewHolder>() {
 
+    private lateinit var context: Context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyBoardViewHolder {
+        context = parent.context
         val view = DropdownTvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyBoardViewHolder(view)
     }
