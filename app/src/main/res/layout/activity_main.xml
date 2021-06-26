@@ -75,7 +75,7 @@
                         tools:text="Selected Class" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_dropdown"
+                        android:id="@+id/rv_classes_dropdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
@@ -104,6 +104,7 @@
         android:padding="8dp"
         android:text="Save"
         android:textSize="16sp"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

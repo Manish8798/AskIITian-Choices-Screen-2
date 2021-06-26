@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.askiitianchoicesscreenspinner.databinding.ActivityMainBinding
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
         userSelection.add("0")
         userSelection.add("0")
 
-        binding.rvDropdown.apply {
+        binding.rvClassesDropdown.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = MyClassesAdapter(selectClassDropDownNames(), this@MainActivity)
         }
@@ -42,16 +43,28 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
 
         binding.apply {
             selectClassesCv.setOnClickListener {
-                rvDropdown.visibility = View.VISIBLE
+                if (rvClassesDropdown.isVisible) {
+                    rvClassesDropdown.visibility = View.GONE
+                } else {
+                    rvClassesDropdown.visibility = View.VISIBLE
+                }
             }
             includeSelectBoards.apply {
                 selectBoardsCv.setOnClickListener {
-                    rvSelectBoards.visibility = View.VISIBLE
+                    if (rvSelectBoards.isVisible) {
+                        rvSelectBoards.visibility = View.GONE
+                    } else {
+                        rvSelectBoards.visibility = View.VISIBLE
+                    }
                 }
             }
             includeSelectExams.apply {
                 selectExamsCv.setOnClickListener {
-                    rvSelectExams.visibility = View.VISIBLE
+                    if (rvSelectExams.isVisible) {
+                        rvSelectExams.visibility = View.GONE
+                    } else {
+                        rvSelectExams.visibility = View.VISIBLE
+                    }
                 }
             }
 
@@ -103,7 +116,7 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
     override fun onItemClick(position: Int, options: List<String>) {
         binding.selectedClassTv.text = options[position]
         binding.selectedClassTv.visibility = View.VISIBLE
-        binding.rvDropdown.visibility = View.GONE
+        binding.rvClassesDropdown.visibility = View.GONE
         userSelection[0] = options[position]
         Log.d(TAG, "onItemClick: $userSelection")
     }
