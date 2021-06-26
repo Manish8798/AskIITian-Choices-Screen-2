@@ -103,6 +103,8 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="Save"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:background="@drawable/curve_bg"
         android:textSize="16sp"
         android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent" />
