@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
 
     private lateinit var binding: ActivityMainBinding
     private val TAG = "Main"
+    private var checkStatusBoard = false
+    private var checkStatusExams = false
     private val userSelection: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,19 +53,27 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
             }
             includeSelectBoards.apply {
                 selectBoardsCv.setOnClickListener {
-                    if (rvSelectBoards.isVisible) {
-                        rvSelectBoards.visibility = View.GONE
+                    if (checkStatusBoard) {
+                        if (rvSelectBoards.isVisible) {
+                            rvSelectBoards.visibility = View.GONE
+                        } else {
+                            rvSelectBoards.visibility = View.VISIBLE
+                        }
                     } else {
-                        rvSelectBoards.visibility = View.VISIBLE
+                        Toast.makeText(this@MainActivity, "select class first", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
             includeSelectExams.apply {
                 selectExamsCv.setOnClickListener {
-                    if (rvSelectExams.isVisible) {
-                        rvSelectExams.visibility = View.GONE
+                    if (checkStatusExams) {
+                        if (rvSelectExams.isVisible) {
+                            rvSelectExams.visibility = View.GONE
+                        } else {
+                            rvSelectExams.visibility = View.VISIBLE
+                        }
                     } else {
-                        rvSelectExams.visibility = View.VISIBLE
+                        Toast.makeText(this@MainActivity, "select board first", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -110,6 +120,7 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
         binding.includeSelectBoards.selectedBoardTv.visibility = View.VISIBLE
         binding.includeSelectBoards.rvSelectBoards.visibility = View.GONE
         userSelection[1] = options[position]
+        checkStatusExams = true
         Log.d(TAG, "onBoardItemClick: ${userSelection}")
     }
 
@@ -118,6 +129,7 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
         binding.selectedClassTv.visibility = View.VISIBLE
         binding.rvClassesDropdown.visibility = View.GONE
         userSelection[0] = options[position]
+        checkStatusBoard = true
         Log.d(TAG, "onItemClick: $userSelection")
     }
 
