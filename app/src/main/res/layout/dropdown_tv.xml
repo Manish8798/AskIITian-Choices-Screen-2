@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.appcompat.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tv_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:textColor="@color/black"
     android:background="@drawable/curve_bg"
-    android:padding="8dp"
-    android:textSize="16sp"
-    android:textStyle="bold"
-    tools:text="Subjects" />
+    app:cardCornerRadius="8dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="Subjects" />
+
+</androidx.cardview.widget.CardView>

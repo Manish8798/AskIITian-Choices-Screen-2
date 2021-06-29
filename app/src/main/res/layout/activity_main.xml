@@ -7,62 +7,108 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/select_class_cv"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/confirm_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <LinearLayout
-            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <androidx.cardview.widget.CardView
+                android:id="@+id/select_classes_cv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Class"
-                android:padding="8dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tv_input_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:paddingBottom="16dp"
-                android:paddingRight="8dp"
-                android:paddingLeft="8dp"
-                android:visibility="gone">
-
-                <AutoCompleteTextView
-                    android:id="@+id/auto_complete_tv"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:text="Class 12" />
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:padding="8dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:padding="8dp"
+                            android:text="Select Classes"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:padding="8dp"
+                            android:text="1/3"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/selected_class_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/curve_bg"
+                        android:padding="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tools:text="Selected Class" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_classes_dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        tools:listitem="@layout/dropdown_tv" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <include
+                android:id="@+id/include_select_boards"
+                layout="@layout/select_boards_layout" />
+
+            <include
+                android:id="@+id/include_select_exams"
+                layout="@layout/select_exams_layout" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/confirm_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test"
-        android:textSize="32sp"
-        app:layout_constraintTop_toBottomOf="@+id/select_class_cv" />
+        android:padding="8dp"
+        android:text="Save"
+        android:backgroundTint="@color/grey"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@drawable/curve_bg"
+        android:textSize="16sp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
