@@ -91,7 +91,6 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
                 }
             }
         }
-
     }
 
     private fun selectClassDropDownNames(): List<String> {
