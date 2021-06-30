@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.askiitianchoicesscreenspinner.databinding.ActivityMainBinding
@@ -136,6 +137,7 @@ class MainActivity : AppCompatActivity(), MyClassesAdapter.OnItemClickListener,
         binding.includeSelectExams.selectedExamTv.text = options[position]
         binding.includeSelectExams.selectedExamTv.visibility = View.VISIBLE
         binding.includeSelectExams.rvSelectExams.visibility = View.GONE
+        binding.confirmBtn.background.setTint(ContextCompat.getColor(this, R.color.orange))
         userSelection[2] = options[position]
         Log.d(TAG, "onExamItemClick: $userSelection")
     }
